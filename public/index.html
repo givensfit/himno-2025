@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Himno Nacional - A Una Sola Voz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header>
+    <h1 class="title">¡Únete al Canto <span>Nacional!</span></h1>
+    <p class="subtitle">Con la voz de cada mexicano, hagamos que nuestro Himno Nacional <b>retumbe</b> en cada rincón del planeta, uniendo a la Patria en una sola voz</p>
+  </header>
+
+  <main style="height: 368px;">
+    <p class="fecha">Cuenta Regresiva: 15 Sep 2025 | 3:00 p.m. | UTC-6</p>
+
+    <div id="audio-container" class="audio-switch-container">
+      <p>Activa la opción para escuchar nuestro Himno a la hora indicada</p>
+      <p>(en algunos disp. iPhone activar cuando finalice el tiempo)</p>
+      <label class="switch">
+        <input type="checkbox" id="audio-switch">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <div class="temporizador-frase">
+      <div id="temporizador-contenedor">
+        <div class="temporizador-bloque">
+          <span id="dias"></span>
+          <span class="label">DÍAS</span>
+        </div>
+        
+        <div class="temporizador-bloque">
+          <span id="horas"></span>
+          <span class="label">HORAS</span>
+        </div>
+        
+        <div class="temporizador-bloque">
+          <span id="minutos"></span>
+          <span class="label">MINUTOS</span>
+        </div>
+        
+        <div class="temporizador-bloque">
+          <span id="segundos"></span>
+          <span class="label">SEGUNDOS</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside>
+    <div class="donate">
+      <p>Apoya este movimiento</p>
+      <button onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=PGEFJK5L2G5NJ', '_blank')">
+        <img src="./assets/icons/donate-pp.svg" alt="Donate PayPal">
+      </button>
+    </div>
+    
+    <div class="usuarios">
+      <p>En linea</p>
+      <p id="userCount">0</p>
+    </div>
+  </aside>
+
+  
+  <div class="cantando-paz"><p>#CantandoPorLaPaz</p></div>
+  <footer>
+    <img src="./assets/icons/hecho-en-mexico.svg" alt="Hecho en México">
+    <p><span>Hecho con</span> <span>&hearts;</span> <a href="https://kreonara.com" target="_blank">by kreonara</a></p>
+  </footer>
+
+  <audio id="himnoAudio">
+    <source src="./himno-nacional.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+</html>
