@@ -67,7 +67,7 @@ setInterval(() => {
 
 
 // configuración del puerto de escucha
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 3000
 server.listen(PORT, () => {
     console.log(`servidor corriendo en el purto: ${PORT}`)
 })
