@@ -1,13 +1,15 @@
 const fs = require('fs')
-const path = require('path')
-
-const logFile = path.join(__dirname, 'ips_visitadas.json')
 
 const contarIP = (io, totalIpsUnicas, totalFile, logFile) => (req, res, next) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
 
     if (ip.includes('::ffff:')) {
         ip = ip.split(':').pop()
+    }
+
+    // NUEVA LÍNEA: Si la IP es una lista separada por comas, toma la primera.
+    if (ip.includes(',')) {
+        ip = ip.split(',')[0].trim();
     }
 
     fs.readFile(logFile, 'utf8', (err, data) => {
@@ -17,6 +19,7 @@ const contarIP = (io, totalIpsUnicas, totalFile, logFile) => (req, res, next) =>
                 ips = JSON.parse(data)
             } catch (e) {
                 console.error("Error al parsear el archivo JSON de IPs:", e)
+                ips = {}
             }
         }
 

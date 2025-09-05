@@ -157,26 +157,6 @@ himnoAudio.addEventListener('ended', () => {
   })
 })
 
-// Función para obtener y mostrar el conteo total de IPs
-const getUniqueTotalCount = () => {
-    fetch('/conteo-ips')
-        .then(response => response.json())
-        .then(data => {
-            if (userTotalElement) {
-                userTotalElement.textContent = data.total_ips
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener el conteo total de usuarios:', error)
-            if (userTotalElement) {
-                userTotalElement.textContent = 'Error'
-            }
-        })
-}
-
-// Llamada inicial al cargar la página
-getUniqueTotalCount()
-
 /*
 const fechaObjetivo = new Date('September 16, 2025 15:00:00 GMT-0600');
 
