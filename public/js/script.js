@@ -31,7 +31,7 @@ const actualizarTiempoHimno = () => {
 // Actualizamos el conteo total de IPs
 // Escucha del evento 'totalIpsUpdate' del servidor
 socket.on('totalIpsUpdate', (count) => {
-    // console.log(`Socket.IO: Recibido nuevo total de IPs: ${count}`)
+    console.log(`Socket.IO: Recibido nuevo total de IPs: ${count}`)
     if(userTotalElement) {
         userTotalElement.textContent = count
     }
@@ -44,7 +44,7 @@ fetch('/conteo-ips')
     .then(data => {
         if (userTotalElement) {
             userTotalElement.textContent = data.total_ips
-            console.log(`Conteo inicial de cargado: ${data.total_ips}`)
+            console.log(`Fetch: Conteo inicial de IPs cargado: ${data.total_ips}`)
         }
     })
     .catch(error => {
