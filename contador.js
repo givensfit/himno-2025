@@ -3,7 +3,7 @@ const path = require('path')
 
 const logFile = path.join(__dirname, 'ips_visitadas.json')
 
-const contarIP = (io, totalIpsUnicas, totalFile) => (req, res, next) => {
+const contarIP = (io, totalIpsUnicas, totalFile, logFile) => (req, res, next) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
 
     if (ip.includes('::ffff:')) {

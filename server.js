@@ -11,6 +11,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
 
+// rutas de archivos
 const logFile = path.join(__dirname, 'ips_visitadas.json')
 const totalFile = path.join(__dirname, 'conteo_total.json')
 
@@ -50,7 +51,7 @@ cargarConteoTotal();
 // archivos estáticos de la carpeta public
 app.use(express.static('public'))
 
-app.use(contarIP(io, totalIpsUnicas, totalFile))
+app.use(contarIP(io, totalIpsUnicas, totalFile, logFile))
 
 
 // iniciamos la configuración con los sockets
@@ -72,6 +73,9 @@ io.on('connection', socket => {
         const tiempoTranscurrido = new Date() - himnoStartTime
         socket.emit('playHimno', tiempoTranscurrido)
     }
+
+    // enviamos el total de IPs al usuario que se acaba de conectar
+    socket.emit('totalIpsUpdate', totalIpsUnicas.count)
 
     // actualizamos el conteo por cada usuario que se desconecta
     socket.on('disconnect', () => {
