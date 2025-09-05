@@ -10,6 +10,11 @@ const contarIP = (io, totalIpsUnicas, totalFile, logFile) => (req, res, next) =>
         ip = ip.split(':').pop()
     }
 
+    // NUEVA LÍNEA: Si la IP es una lista separada por comas, toma la primera.
+    if (ip.includes(',')) {
+        ip = ip.split(',')[0].trim();
+    }
+
     fs.readFile(logFile, 'utf8', (err, data) => {
         let ips = {}
         if (!err) {
