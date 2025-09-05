@@ -307,7 +307,7 @@ aside p {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .contenedor-rs > p {
@@ -329,6 +329,8 @@ aside p {
 .insta { background: url('../assets/icons/instagram.svg') no-repeat center / cover;}
 .face { background: url('../assets/icons/facebook.svg') no-repeat center / cover;}
 
+.msg-rs { font-size: 1.2rem; margin-bottom: 0.5rem; }
+
 footer {
   background-color: rgba(255, 255, 255, 0.3);
   width: 100%;
@@ -348,5 +350,5 @@ footer > p {
 
 footer span:nth-child(1) { color: #006847; }
 footer span:nth-child(2) { color: #FFF; }
-footer a { color: #CE1126; }
-footer a:hover { color: #FF0000; }
+footer a { color: #CE1126; border-bottom: 2px solid #CE1126;  }
+footer a:hover { color: #FF0000; border-bottom-color: #FF0000; }
