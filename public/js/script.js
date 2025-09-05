@@ -31,7 +31,7 @@ const actualizarTiempoHimno = () => {
 // Actualizamos el conteo total de IPs
 // Escucha del evento 'totalIpsUpdate' del servidor
 socket.on('totalIpsUpdate', (count) => {
-    console.log(`Socket.IO: Recibido nuevo total de IPs: ${count}`)
+    // console.log(`Socket.IO: Recibido nuevo total de IPs: ${count}`)
     if(userTotalElement) {
         userTotalElement.textContent = count
     }
@@ -44,7 +44,7 @@ fetch('/conteo-ips')
     .then(data => {
         if (userTotalElement) {
             userTotalElement.textContent = data.total_ips
-            console.log(`Fetch: Conteo inicial de IPs cargado: ${data.total_ips}`)
+            console.log(`Conteo inicial de cargado: ${data.total_ips}`)
         }
     })
     .catch(error => {
@@ -156,26 +156,6 @@ himnoAudio.addEventListener('ended', () => {
     ],
   })
 })
-
-// Función para obtener y mostrar el conteo total de IPs
-const getUniqueTotalCount = () => {
-    fetch('/conteo-ips')
-        .then(response => response.json())
-        .then(data => {
-            if (userTotalElement) {
-                userTotalElement.textContent = data.total_ips
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener el conteo total de usuarios:', error)
-            if (userTotalElement) {
-                userTotalElement.textContent = 'Error'
-            }
-        })
-}
-
-// Llamada inicial al cargar la página
-getUniqueTotalCount()
 
 /*
 const fechaObjetivo = new Date('September 16, 2025 15:00:00 GMT-0600');

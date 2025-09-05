@@ -31,13 +31,19 @@ const cargarConteoTotal = () => {
         if (!err) {
             try {
                 const totalData = JSON.parse(data)
-                totalIpsUnicas.count = totalData.total
+                if (totalData && typeof totalData.total === 'number') {
+                    totalIpsUnicas.count = totalData.total
+                } else {
+                    console.error("El archivo de conteo total no tiene un formato válido. Reiniciando conteo en 0.")
+                    totalIpsUnicas.count = 0
+                }
                 console.log(`Conteo total de IPs cargado: ${totalIpsUnicas.count}`)
             } catch (e) {
-                console.error("Error al cargar el conteo total:", e)
-                totalIpsUnicas.count = 0;
+                console.error("Error al parsear el conteo total. Reiniciando conteo en 0:", e)
+                totalIpsUnicas.count = 0
             }
         } else {
+            console.error("El archivo de conteo total no existe. Creando archivo e iniciando conteo en 0.")
             // Si el archivo no existe, lo creamos con 0
             fs.writeFile(totalFile, JSON.stringify({ total: 0 }), 'utf8', (err) => {
                 if(err) console.error("Error al crear el archivo de conteo total.")
@@ -51,8 +57,9 @@ cargarConteoTotal();
 // archivos estáticos de la carpeta public
 app.use(express.static('public'))
 
-app.use(contarIP(io, totalIpsUnicas, totalFile, logFile))
-
+app.get('/', contarIP(io, totalIpsUnicas, totalFile, logFile), () => {
+    console.log('Contador funcionando')
+})
 
 // iniciamos la configuración con los sockets
 // control sobre los usuarios
@@ -107,19 +114,15 @@ setInterval(() => {
         himnoStartTime = new Date()
         console.log('El Himno ha iniciado!')
     }
-}, 1000);
+}, 1000)
 
 // Ruta para que la página web obtenga el conteo total al cargar
 app.get('/conteo-ips', (req, res) => {
     res.status(200).json({ total_ips: totalIpsUnicas.count })
 })
 
-app.get('/', (req, res) => {
-    console.log('¡contador IPs funcionando!')
-})
-
 // configuración del puerto de escucha
 const PORT = process.env.PORT || 3000
 server.listen(PORT, () => {
-    console.log(`servidor corriendo en el purto: ${PORT}`)
+    console.log(`servidor corriendo en el puerto: ${PORT}`)
 })
