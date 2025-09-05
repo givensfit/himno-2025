@@ -297,10 +297,37 @@ aside p {
   margin-bottom: 1rem;
 }
 
-aside img {
+/* aside img {
   width: 14rem;
   margin-top: 1rem;
+} */
+
+.contenedor-rs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
+
+.contenedor-rs > p {
+  font-size: 1.6rem;
+}
+
+.redes-sociales {
+  display: flex;
+  gap: 1rem;
+}
+
+.rs-icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.tiktok { background: url('../assets/icons/tiktok.svg') no-repeat center / cover;}
+.insta { background: url('../assets/icons/instagram.svg') no-repeat center / cover;}
+.face { background: url('../assets/icons/facebook.svg') no-repeat center / cover;}
 
 footer {
   background-color: rgba(255, 255, 255, 0.3);

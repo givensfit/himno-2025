@@ -1,5 +1,5 @@
 // nos conectamos con el servidor de sockets
-const socket = io();
+const socket = io()
 
 // referencias a los elementos del DOM
 const dias = document.getElementById('dias')
@@ -8,6 +8,9 @@ const minutos = document.getElementById('minutos')
 const segundos = document.getElementById('segundos')
 const temporizadorContenedor = document.getElementById('temporizador-contenedor')
 const himnoAudio = document.getElementById('himnoAudio')
+
+const userTotalElement = document.getElementById('userTotal')
+
 // switch para el audio ON/OFF
 const audioContainer = document.getElementById('audio-container')
 const audioSwitch = document.getElementById('audio-switch')
@@ -21,9 +24,35 @@ const actualizarTiempoHimno = () => {
   if(intervaloTiempoHimno === null) {
     intervaloTiempoHimno = setInterval(() => {
       tiempoHimno += 1000
-    }, 1000);
+    }, 1000)
   }
 }
+
+// Actualizamos el conteo total de IPs
+// Escucha del evento 'totalIpsUpdate' del servidor
+socket.on('totalIpsUpdate', (count) => {
+    console.log(`Socket.IO: Recibido nuevo total de IPs: ${count}`)
+    if(userTotalElement) {
+        userTotalElement.textContent = count
+    }
+})
+
+// Cuando la página carga por primera vez, pedimos el conteo inicial
+// Lo hacemos con un fetch, pero la próxima actualización ya será vía sockets
+fetch('/conteo-ips')
+    .then(response => response.json())
+    .then(data => {
+        if (userTotalElement) {
+            userTotalElement.textContent = data.total_ips
+            console.log(`Fetch: Conteo inicial de IPs cargado: ${data.total_ips}`)
+        }
+    })
+    .catch(error => {
+        console.error('Error al obtener el conteo total de usuarios:', error)
+        if (userTotalElement) {
+            userTotalElement.textContent = 'Error'
+        }
+    })
 
 // se actualiza el conteo de los usuarios en linea
 // escucha del evento 'userCountUpdate' del servidor
@@ -118,17 +147,35 @@ himnoAudio.addEventListener('ended', () => {
   document.querySelector('main').appendChild(mensajeFinal)
 
   // activamos la animación del confeti
-  const jsConfetti = new JSConfetti();
+  const jsConfetti = new JSConfetti()
   jsConfetti.addConfetti({
     confettiColors: [
       '#006847',
       '#ffffff',
       '#CE1126',
     ],
-  });
+  })
 })
 
+// Función para obtener y mostrar el conteo total de IPs
+const getUniqueTotalCount = () => {
+    fetch('/conteo-ips')
+        .then(response => response.json())
+        .then(data => {
+            if (userTotalElement) {
+                userTotalElement.textContent = data.total_ips
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener el conteo total de usuarios:', error)
+            if (userTotalElement) {
+                userTotalElement.textContent = 'Error'
+            }
+        })
+}
 
+// Llamada inicial al cargar la página
+getUniqueTotalCount()
 
 /*
 const fechaObjetivo = new Date('September 16, 2025 15:00:00 GMT-0600');
