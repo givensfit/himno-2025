@@ -2,6 +2,12 @@ const fs = require('fs')
 const path = require('path')
 
 const logFile = path.join(__dirname, 'ips_visitadas.json')
+const totalFile = path.join(__dirname, 'conteo_total.json')
+
+// Asegúrate de que la carpeta de logs exista
+if (!fs.existsSync(path.dirname(logFile))) {
+    fs.mkdirSync(path.dirname(logFile), { recursive: true });
+}
 
 const contarIP = (io, totalIpsUnicas, totalFile, logFile) => (req, res, next) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
